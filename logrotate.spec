@@ -4,13 +4,16 @@
 #
 Name     : logrotate
 Version  : 3.14.0
-Release  : 1
+Release  : 2
 URL      : https://github.com/logrotate/logrotate/releases/download/3.14.0/logrotate-3.14.0.tar.xz
 Source0  : https://github.com/logrotate/logrotate/releases/download/3.14.0/logrotate-3.14.0.tar.xz
+Source1  : logrotate.service
+Source2  : logrotate.timer
 Summary  : Rotates, compresses, removes and mails system log files
 Group    : Development/Tools
 License  : GPL-2.0 GPL-2.0+
 Requires: logrotate-bin
+Requires: logrotate-config
 Requires: logrotate-license
 Requires: logrotate-man
 BuildRequires : acl-dev
@@ -30,11 +33,20 @@ log files on your system.
 %package bin
 Summary: bin components for the logrotate package.
 Group: Binaries
+Requires: logrotate-config
 Requires: logrotate-license
 Requires: logrotate-man
 
 %description bin
 bin components for the logrotate package.
+
+
+%package config
+Summary: config components for the logrotate package.
+Group: Default
+
+%description config
+config components for the logrotate package.
 
 
 %package license
@@ -61,7 +73,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1534186713
+export SOURCE_DATE_EPOCH=1534191343
 %configure --disable-static
 make  %{?_smp_mflags}
 
@@ -73,11 +85,14 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1534186713
+export SOURCE_DATE_EPOCH=1534191343
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/doc/logrotate
 cp COPYING %{buildroot}/usr/share/doc/logrotate/COPYING
 %make_install
+mkdir -p %{buildroot}/usr/lib/systemd/system
+install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/systemd/system/logrotate.service
+install -m 0644 %{SOURCE2} %{buildroot}/usr/lib/systemd/system/logrotate.timer
 
 %files
 %defattr(-,root,root,-)
@@ -85,6 +100,11 @@ cp COPYING %{buildroot}/usr/share/doc/logrotate/COPYING
 %files bin
 %defattr(-,root,root,-)
 /usr/bin/logrotate
+
+%files config
+%defattr(-,root,root,-)
+/usr/lib/systemd/system/logrotate.service
+/usr/lib/systemd/system/logrotate.timer
 
 %files license
 %defattr(-,root,root,-)
