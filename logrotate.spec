@@ -4,7 +4,7 @@
 #
 Name     : logrotate
 Version  : 3.15.0
-Release  : 3
+Release  : 4
 URL      : https://github.com/logrotate/logrotate/releases/download/3.15.0/logrotate-3.15.0.tar.xz
 Source0  : https://github.com/logrotate/logrotate/releases/download/3.15.0/logrotate-3.15.0.tar.xz
 Source1  : logrotate.service
