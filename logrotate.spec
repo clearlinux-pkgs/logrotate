@@ -5,13 +5,13 @@
 # Source0 file verified with key 0x873DB37572A37B36 (kdudka@redhat.com)
 #
 Name     : logrotate
-Version  : 3.15.1
-Release  : 5
-URL      : https://github.com/logrotate/logrotate/releases/download/3.15.1/logrotate-3.15.1.tar.xz
-Source0  : https://github.com/logrotate/logrotate/releases/download/3.15.1/logrotate-3.15.1.tar.xz
+Version  : 3.16.0
+Release  : 6
+URL      : https://github.com/logrotate/logrotate/releases/download/3.16.0/logrotate-3.16.0.tar.xz
+Source0  : https://github.com/logrotate/logrotate/releases/download/3.16.0/logrotate-3.16.0.tar.xz
 Source1  : logrotate.service
 Source2  : logrotate.timer
-Source3 : https://github.com/logrotate/logrotate/releases/download/3.15.1/logrotate-3.15.1.tar.xz.asc
+Source3  : https://github.com/logrotate/logrotate/releases/download/3.16.0/logrotate-3.16.0.tar.xz.asc
 Summary  : Rotates, compresses, removes and mails system log files
 Group    : Development/Tools
 License  : GPL-2.0 GPL-2.0+
@@ -68,14 +68,15 @@ services components for the logrotate package.
 
 
 %prep
-%setup -q -n logrotate-3.15.1
+%setup -q -n logrotate-3.16.0
+cd %{_builddir}/logrotate-3.16.0
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1567182206
+export SOURCE_DATE_EPOCH=1582909787
 # -Werror is for werrorists
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
@@ -96,10 +97,10 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1567182206
+export SOURCE_DATE_EPOCH=1582909787
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/logrotate
-cp COPYING %{buildroot}/usr/share/package-licenses/logrotate/COPYING
+cp %{_builddir}/logrotate-3.16.0/COPYING %{buildroot}/usr/share/package-licenses/logrotate/4cc77b90af91e615a64ae04893fdffa7939db84c
 %make_install
 mkdir -p %{buildroot}/usr/lib/systemd/system
 install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/systemd/system/logrotate.service
@@ -114,7 +115,7 @@ install -m 0644 %{SOURCE2} %{buildroot}/usr/lib/systemd/system/logrotate.timer
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/logrotate/COPYING
+/usr/share/package-licenses/logrotate/4cc77b90af91e615a64ae04893fdffa7939db84c
 
 %files man
 %defattr(0644,root,root,0755)
