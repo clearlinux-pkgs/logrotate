@@ -5,13 +5,13 @@
 # Source0 file verified with key 0x873DB37572A37B36 (kdudka@redhat.com)
 #
 Name     : logrotate
-Version  : 3.17.0
-Release  : 7
-URL      : https://github.com/logrotate/logrotate/releases/download/3.17.0/logrotate-3.17.0.tar.xz
-Source0  : https://github.com/logrotate/logrotate/releases/download/3.17.0/logrotate-3.17.0.tar.xz
+Version  : 3.18.0
+Release  : 8
+URL      : https://github.com/logrotate/logrotate/releases/download/3.18.0/logrotate-3.18.0.tar.xz
+Source0  : https://github.com/logrotate/logrotate/releases/download/3.18.0/logrotate-3.18.0.tar.xz
 Source1  : logrotate.service
 Source2  : logrotate.timer
-Source3  : https://github.com/logrotate/logrotate/releases/download/3.17.0/logrotate-3.17.0.tar.xz.asc
+Source3  : https://github.com/logrotate/logrotate/releases/download/3.18.0/logrotate-3.18.0.tar.xz.asc
 Summary  : Rotates, compresses, removes and mails system log files
 Group    : Development/Tools
 License  : GPL-2.0 GPL-2.0+
@@ -68,15 +68,15 @@ services components for the logrotate package.
 
 
 %prep
-%setup -q -n logrotate-3.17.0
-cd %{_builddir}/logrotate-3.17.0
+%setup -q -n logrotate-3.18.0
+cd %{_builddir}/logrotate-3.18.0
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1594390299
+export SOURCE_DATE_EPOCH=1610120049
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -93,13 +93,13 @@ export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-make VERBOSE=1 V=1 %{?_smp_mflags} check
+make %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1594390299
+export SOURCE_DATE_EPOCH=1610120049
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/logrotate
-cp %{_builddir}/logrotate-3.17.0/COPYING %{buildroot}/usr/share/package-licenses/logrotate/4cc77b90af91e615a64ae04893fdffa7939db84c
+cp %{_builddir}/logrotate-3.18.0/COPYING %{buildroot}/usr/share/package-licenses/logrotate/4cc77b90af91e615a64ae04893fdffa7939db84c
 %make_install
 mkdir -p %{buildroot}/usr/lib/systemd/system
 install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/systemd/system/logrotate.service
