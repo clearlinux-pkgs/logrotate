@@ -5,13 +5,13 @@
 # Source0 file verified with key 0x873DB37572A37B36 (kdudka@redhat.com)
 #
 Name     : logrotate
-Version  : 3.18.1
-Release  : 9
-URL      : https://github.com/logrotate/logrotate/releases/download/3.18.1/logrotate-3.18.1.tar.xz
-Source0  : https://github.com/logrotate/logrotate/releases/download/3.18.1/logrotate-3.18.1.tar.xz
+Version  : 3.19.0
+Release  : 10
+URL      : https://github.com/logrotate/logrotate/releases/download/3.19.0/logrotate-3.19.0.tar.xz
+Source0  : https://github.com/logrotate/logrotate/releases/download/3.19.0/logrotate-3.19.0.tar.xz
 Source1  : logrotate.service
 Source2  : logrotate.timer
-Source3  : https://github.com/logrotate/logrotate/releases/download/3.18.1/logrotate-3.18.1.tar.xz.asc
+Source3  : https://github.com/logrotate/logrotate/releases/download/3.19.0/logrotate-3.19.0.tar.xz.asc
 Summary  : Rotates, compresses, removes and mails system log files
 Group    : Development/Tools
 License  : GPL-2.0 GPL-2.0+
@@ -68,23 +68,23 @@ services components for the logrotate package.
 
 
 %prep
-%setup -q -n logrotate-3.18.1
-cd %{_builddir}/logrotate-3.18.1
+%setup -q -n logrotate-3.19.0
+cd %{_builddir}/logrotate-3.19.0
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1621606487
+export SOURCE_DATE_EPOCH=1641854163
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
-export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
-export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
-export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
+export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=auto "
+export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=auto "
+export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=auto "
+export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=auto "
 %configure --disable-static
 make  %{?_smp_mflags}
 
@@ -96,10 +96,10 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1621606487
+export SOURCE_DATE_EPOCH=1641854163
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/logrotate
-cp %{_builddir}/logrotate-3.18.1/COPYING %{buildroot}/usr/share/package-licenses/logrotate/4cc77b90af91e615a64ae04893fdffa7939db84c
+cp %{_builddir}/logrotate-3.19.0/COPYING %{buildroot}/usr/share/package-licenses/logrotate/4cc77b90af91e615a64ae04893fdffa7939db84c
 %make_install
 mkdir -p %{buildroot}/usr/lib/systemd/system
 install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/systemd/system/logrotate.service
