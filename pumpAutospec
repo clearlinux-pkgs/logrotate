@@ -1,2 +1,6 @@
 logrotate-3.22.0.tar.gz verification failed Public key C78CE737A3C3E28E not found
 logrotate-3.22.0.tar.gz verification failed Public key C78CE737A3C3E28E not found
+Public key has changed:
+            old key: 873DB37572A37B36
+            new key: C78CE737A3C3E28E
+this is a critical security error, quitting...
